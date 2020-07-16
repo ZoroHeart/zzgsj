@@ -18,5 +18,8 @@ let getInspection=()=>{
 let getJYZX=()=>{
     return axios.get("api/hikvision/cameras?type=filter");
 };
-
-export {getEntrepot,getInspection,getJYZX};
+/* 根据code获取萤石云视频 */
+let getYSYvideo=(indexcode)=>{
+    return axios.get("api/hikvision/liveurl?indexcode="+indexcode);
+};
+export {getEntrepot,getInspection,getJYZX,getYSYvideo};

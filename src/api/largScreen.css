@@ -1,0 +1,179 @@
+.entrepotInspectionBox{
+    width: 3840px;
+    height: 3240px;
+    background-color: #000e33;
+}
+.boxTop{
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    top: 0;
+    left: 0;
+    background: url("../assets/icon/frameup.png") no-repeat;
+    background-size: 100%;
+}
+.boxBottom{
+    position: absolute;
+    width: 100%;
+    height: 8px;
+    bottom: 0;
+    left: 0;
+    background: url("../assets/icon/framedown.png") no-repeat;
+    background-size: 100%;
+}
+.entrepotInspectionTop{
+    height: 15%;
+    width: 100%;
+    position: relative;
+}
+.entrepotTopTitle{
+    color: #fff;
+    font-size: 36px;
+    height: 15%;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding-left: 2%;
+}
+.entrepotTopCont{
+    width: 100%;
+    height: 84%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    align-items: center;
+}
+.entrepotTopCont .barIconCss{
+    width: 21%;
+    height: 98%;
+    position: relative;
+    font-size: 36px;
+    color: #fff;
+}
+.entrepotTopCont .barIconCss p{
+    position: absolute;
+    font-size: 30px;
+    bottom: 8%;
+    left: 45%;
+}
+.entrepotTopCont .barIconCss i{
+    position: absolute;
+    font-size:62px;
+    top: 31%;
+    left: 48%;
+}
+.entrepotTopCont .barIconCss:first-of-type{
+    background: url("../assets/icon/quan1.png") no-repeat;
+    background-position: center 6%;
+    background-size:40% ;
+    color: #0af4d1;
+}
+.entrepotTopCont .barIconCss:nth-of-type(2){
+    background: url("../assets/icon/quan2.png") no-repeat;
+    background-position: center 6%;
+    background-size:40% ;
+    color: #feef00;
+}
+.entrepotTopCont .barIconCss:nth-of-type(3){
+    background: url("../assets/icon/quan3.png") no-repeat;
+    background-position: center 6%;
+    background-size:40% ;
+    color: #5ca1fe;
+}
+.entrepotTopCont .barIconCss:last-of-type{
+    background: url("../assets/icon/quan4.png") no-repeat;
+    background-position: center 6%;
+    background-size:40% ;
+    color: #ff9620;
+}
+
+.entrepotInspectionCenter,.entrepotInspectionBottom{
+    height: 41%;
+    width: 100%;
+    position: relative;
+    margin-top: 1%;
+}
+.entrepotVideoTitle,.inspectionVideoTitle{
+    color: #fff;
+    font-size: 36px;
+    height: 6%;
+    position: relative;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    padding-left: 2%;
+}
+.entrepotList,.inspectionList{
+    position: absolute;
+    top: 1.5%;
+    left: 10%;
+}
+.entrepotList .zzgSelect,.sjSelect{
+    border-radius: 4px;
+    width: 300px;
+    height: 40px;
+    font-size: 26px;
+}
+.entrepotBtnBox,.inspectionBtnBox{
+    position: absolute;
+    top: 1.5%;
+    left: 20%;
+    width: 60%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: start;
+    align-items: center;
+}
+.entrepotBtnBox .entrepotBtnCss,.inspectionBtnCss{
+    border-radius: 6px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 26px;
+    background-color: #fff;
+    color: #333;
+    margin-left: 1%;
+    cursor: pointer;
+}
+
+.entrepotBox{
+    width: 100%;
+    height: 93%;
+}
+.entrepotBox .entrepotIEcss,.entrepotBox .entrepotYSYcss{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: start;
+}
+.entrepotVideo{
+    height: 50%;
+    width: 50%;
+}
+.entrepotVideo iframe{
+    width: 100%;
+    height: 100%;
+}
+.entrepotYSYcss>div,.inspectionBox>div{
+    height: 50%;
+    width: 49.8%;
+    border: 1px solid #00a0e9;
+}
+.inspectionBox{
+    width: 100%;
+    height: 93%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: start;
+}
+.inspectionBox>div{
+    height: 50%;
+    width: 49.8%;
+    border: 1px solid #00a0e9;
+}
+
+
