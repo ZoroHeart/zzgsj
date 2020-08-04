@@ -1,6 +1,6 @@
 <template>
     <div class="entrepotInspectionBox">
-        <div class="entrepotInspectionTop">
+        <!--<div class="entrepotInspectionTop">
             <i class="boxTop"></i><i class="boxBottom"></i>
             <div class="entrepotTopTitle">今日转驳中转港信息</div>
             <div class="entrepotTopCont">
@@ -9,22 +9,26 @@
                 <div class="barIconCss"><p>扬州海昌</p><i>1</i></div>
                 <div class="barIconCss"><p>太仓华能</p><i>1</i></div>
             </div>
-        </div>
+        </div>-->
         <div class="entrepotInspectionCenter">
             <i class="boxTop"></i><i class="boxBottom"></i>
-            <div class="entrepotVideoTitle">中转港视频列表</div>
-            <div class="entrepotList">
-                <select class="zzgSelect" @change="entrepotListBtn(entrepotData[entrepotArrIndex].cameras,entrepotData[entrepotArrIndex].typeFlag,1)" v-model="entrepotArrIndex">
-                    <option v-for="(item,index) in entrepotData" :key="index" :value="index">{{item.areaName}}</option>
-                </select>
+            <div class="downListBox" :class="{'active': isActive}">
+                <div class="entrepotList">
+                    <select class="zzgSelect" @change="entrepotListBtn(entrepotData[entrepotArrIndex].cameras,entrepotData[entrepotArrIndex].typeFlag,1)" v-model="entrepotArrIndex">
+                        <option v-for="(item,index) in entrepotData" :key="index" :value="index">{{item.areaName}}</option>
+                    </select>
+                </div>
+                <div class="entrepotBtnBox">
+                    <div class="entrepotBtnCss" v-for="(item,index) in videoBoxBtn" :key="index" @click="nowVideoBtn(index)">{{index + 1}}</div>
+                </div>
+                <div class="entrepotVideoTitle" @click="selectBtnZZG()"><i></i>中转港</div>
             </div>
-            <div class="entrepotBtnBox">
-                <div class="entrepotBtnCss" v-for="(item,index) in videoBoxBtn" :key="index" @click="nowVideoBtn(index)">{{index + 1}}</div>
-            </div>
+
+
             <div class="entrepotBox">
                 <div class="entrepotIEcss" v-if="videoFlagIE">
                     <div class="entrepotVideo" v-for="(item,index) in videoForeDatas" :key="index">
-                        <iframe :src="'http://third.hengshituan.com/api/hangce/play?uuid='+item.cameraUuid"></iframe>
+                        <iframe class="iframeBox" ref="iframeFlag" :src="'http://third.hengshituan.com/api/hangce/play?uuid='+item.cameraUuid"   frameborder= "0" scrolling="no" frameSpacing=2 vspale="0" style="padding:0 !important; z-index: -1; width: 100%; height: 100%; top: 0; left:0;"></iframe>
                     </div>
                 </div>
 
@@ -32,26 +36,28 @@
                     <div class="entrepotVideo0"></div>
                     <div class="entrepotVideo1"></div>
                     <div class="entrepotVideo2"></div>
-                    <div class="entrepotVideo3"></div>
                 </div>
             </div>
         </div>
         <div class="entrepotInspectionBottom">
             <i class="boxTop"></i><i class="boxBottom"></i>
-            <div class="inspectionVideoTitle">商检单位视频列表</div>
-            <div class="inspectionList">
-                <select class="sjSelect" @change="inspectionListBtn(inspectionData[inspectionArrIndex].channels)" v-model="inspectionArrIndex">
-                    <option v-for="(item,index) in inspectionData" :key="index" :value="index">{{item.deviceName}}</option>
-                </select>
+            <div class="downListBox"  :class="{'active': isActiveSJDW}">
+                <div class="inspectionList">
+                    <select class="sjSelect" @change="inspectionListBtn(inspectionData[inspectionArrIndex].channels)" v-model="inspectionArrIndex">
+                        <option v-for="(item,index) in inspectionData" :key="index" :value="index">{{item.deviceName}}</option>
+                    </select>
+                </div>
+                <div class="inspectionBtnBox">
+                    <div class="inspectionBtnCss" v-for="(item,index) in sjvideoBtn" :key="index" @click="nowVideoBtnSJ(index)">{{index + 1}}</div>
+                </div>
+                <div class="inspectionVideoTitle" @click="selectBtnSJDW()"><i></i>商检单位</div>
             </div>
-            <div class="inspectionBtnBox">
-                <div class="inspectionBtnCss" v-for="(item,index) in sjvideoBtn" :key="index" @click="nowVideoBtnSJ(index)">{{index + 1}}</div>
-            </div>
+
+
             <div class="inspectionBox">
                 <div class="inspectionVideo0"></div>
                 <div class="inspectionVideo1"></div>
                 <div class="inspectionVideo2"></div>
-                <div class="inspectionVideo3"></div>
             </div>
         </div>
     </div>
@@ -73,6 +79,8 @@
         data(){
             return{
                 entrepotData:[],
+                isActive:false,
+                isActiveSJDW:false,
                 videoBoxArr:[],//视频播放窗口
                 videoBoxBtn:[],
                 videoForeDatas:[],
@@ -129,13 +137,30 @@
                     this.entrepotListBtn(this.entrepotData[0].cameras,0,0);
                 });
             },
+
+            selectBtnZZG(){
+                if(this.isActive){
+                    this.isActive = false;
+                    this.$refs.iframeFlag[0].style.display = "block";
+                }else{
+                    this.isActive = true;
+                    this.$refs.iframeFlag[0].style.display = "none";
+                }
+            },
+            selectBtnSJDW(){
+                if(this.isActiveSJDW){
+                    this.isActiveSJDW = false;
+                }else{
+                    this.isActiveSJDW = true;
+                }
+            },
             /* 中转港列表切换 */
             entrepotListBtn(data,typeFlag,init){
                 let entrepotList = data;
                 let zjgArr = [];
                 this.typeFlagNum = typeFlag;
-                for(var j=0;j<entrepotList.length;j+=4){
-                    zjgArr.push(entrepotList.slice(j,j+4));
+                for(var j=0;j<entrepotList.length;j+=3){
+                    zjgArr.push(entrepotList.slice(j,j+3));
                 }
                 this.videoBoxBtn = zjgArr;
                 if(init == 0){//初始化
@@ -145,6 +170,8 @@
                     this.videoFlagIE = true;
                     this.videoFlag = false;
                     this.nowVideoBtn(0);
+                    this.isActive = false;
+                    this.$refs.iframeFlag[0].style.display = "block";
                 }else if(typeFlag == 1){
                     this.videoFlagIE = false;
                     this.videoFlag = true;
@@ -159,15 +186,15 @@
             /* 点击视频分页 */
             nowVideoBtn(num){
                 let nowVideoData = this.videoBoxBtn[num];
-                console.log(nowVideoData);
                 if(this.typeFlagNum == 0){
                     this.videoForeDatas = nowVideoData;
+                    this.isActive = false;
+                    this.$refs.iframeFlag[0].style.display = "block";
                 }else if(this.typeFlagNum == 1){
                     for(let i=0;i<nowVideoData.length;i++){
                         this.getCodeYSYvideo(nowVideoData[i].indexCode,i);
                     }
                 }else if(this.typeFlagNum == 2){
-                    console.log(nowVideoData);
                     for(let i=0;i<nowVideoData.length;i++){
                         this.playVideo(nowVideoData[i].liveAddress,"entrepotVideo",i);
                     }
@@ -177,18 +204,15 @@
             /* 根据code获取萤石云视频 */
             getCodeYSYvideo(indexcode,num){
                 getYSYvideo(indexcode).then(response => {
-                    console.log(response.data);
                     this.playVideo(response.data.url,"entrepotVideo",num);
                 })
             },
             inspectionListBtn(data){
                 let inspectionList = data;
-                console.log(inspectionList);
                 let zjgArr = [];
-                for(var j=0;j<inspectionList.length;j+=4){
-                    zjgArr.push(inspectionList.slice(j,j+4));
+                for(var j=0;j<inspectionList.length;j+=3){
+                    zjgArr.push(inspectionList.slice(j,j+3));
                 }
-                console.log(zjgArr);
                 this.sjvideoBtn = zjgArr;
                 this.nowVideoBtnSJ(0);
             },
@@ -243,5 +267,14 @@
         }
     }
 </script>
-
+<style>
+    .iframeBox object{
+        width: 100%;
+        height: 100%;
+    }
+    .iframeBox #testocx{
+        width: 100%!important;
+        height: 100%!important;
+    }
+</style>
 <style src="../../src/api/largScreen.css"></style>
